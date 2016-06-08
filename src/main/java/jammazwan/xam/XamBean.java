@@ -57,15 +57,18 @@ public class XamBean {
 	}
 
 	public List<Employee> generateEmployees(Exchange exchange) {
-		for (int i = 0; i < 25; i++) {
-			Employee employee = new Employee(cities.get(i).getCity(), companies.get(i).getCompanyName(),
-					names.get(i).getMale(), surnames.get(i).getName());
-			employees.add(employee);
+		System.out.println(cities.size() + " " + companies.size() + " " + names.size() + " " + surnames.size());
+		if (employees.size() < 10) {
+			for (int i = 0; i < 25; i++) {
+				Employee employee = new Employee(cities.get(i).getCity(), companies.get(i).getCompanyName(),
+						names.get(i).getMale(), surnames.get(i).getName());
+				employees.add(employee);
+			}
 		}
 		exchange.getIn().setBody(employees);
 		return employees;
 	}
-	
+
 	public Shop generateShop(Exchange exchange) {
 		generateEmployees(exchange);
 		Manager manager = new Manager("Williamsburg", "Abc Consulting", "Freddy", "Applebee");
