@@ -27,13 +27,17 @@ public class XamRoutes extends RouteBuilder {
 
 		from("direct:import").bean(xamBean);
 
-		from("direct:doxml").bean(xamBean, "generate").split(body()).marshal().jacksonxml()
+		from("direct:doxml1").bean(xamBean, "generateEmployees").split(body()).marshal().jacksonxml()
 				.aggregate(header("CamelFileName"), new MyAggregationStrategy()).ignoreInvalidCorrelationKeys()
 				.completionSize(25).completionTimeout(1000).to("file:.");
 		
-		from("direct:dojson").bean(xamBean, "generate").split(body()).marshal().json(JsonLibrary.Jackson)
+		from("direct:dojson1").bean(xamBean, "generateEmployees").split(body()).marshal().json(JsonLibrary.Jackson)
 				.aggregate(header("CamelFileName"), new MyAggregationStrategy()).ignoreInvalidCorrelationKeys()
 				.completionSize(25).completionTimeout(1000).to("file:.");
+
+		from("direct:doxml2").bean(xamBean, "generateShop").marshal().jacksonxml(true).to("file:.");
+		
+		from("direct:dojson2").bean(xamBean, "generateShop").marshal().json(JsonLibrary.Jackson, true).to("file:.");
 	}
 
 	public static class MyAggregationStrategy implements AggregationStrategy {

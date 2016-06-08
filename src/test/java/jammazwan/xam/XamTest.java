@@ -18,13 +18,20 @@ public class XamTest extends CamelSpringTestSupport {
 	public void testXam() throws Exception {
 		HoldContextOpenUntilDone.go(context);
 
-		String reply = template.requestBodyAndHeader("direct:doxml", "No message here", "CamelFileName",
+		String reply = template.requestBodyAndHeader("direct:doxml1", "No message here", "CamelFileName",
 				"employees.xml", String.class);
 		assertTrue(reply.startsWith("[City: Tokyo"));
 
-		reply = template.requestBodyAndHeader("direct:dojson", "No message here", "CamelFileName", "employees.json",
+		reply = template.requestBodyAndHeader("direct:dojson1", "No message here", "CamelFileName", "employees.json",
 				String.class);
 		assertTrue(reply.startsWith("[City: Tokyo"));
+
+		reply = template.requestBodyAndHeader("direct:doxml2", "No message here", "CamelFileName", "shop.xml",
+				String.class);
+//		assertTrue(reply.startsWith("[City: Tokyo"));
+
+		reply = template.requestBodyAndHeader("direct:dojson2", "No message here", "CamelFileName", "shop.json",
+				String.class);
 	}
 
 }

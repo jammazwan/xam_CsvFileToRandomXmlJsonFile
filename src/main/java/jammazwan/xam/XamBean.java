@@ -10,7 +10,9 @@ import org.apache.camel.Handler;
 import jammazwan.entity.City;
 import jammazwan.entity.Company;
 import jammazwan.entity.Employee;
+import jammazwan.entity.Manager;
 import jammazwan.entity.Name;
+import jammazwan.entity.Shop;
 import jammazwan.entity.Surname;
 
 public class XamBean {
@@ -54,7 +56,7 @@ public class XamBean {
 		}
 	}
 
-	public List<Employee> generate(Exchange exchange) {
+	public List<Employee> generateEmployees(Exchange exchange) {
 		for (int i = 0; i < 25; i++) {
 			Employee employee = new Employee(cities.get(i).getCity(), companies.get(i).getCompanyName(),
 					names.get(i).getMale(), surnames.get(i).getName());
@@ -62,6 +64,14 @@ public class XamBean {
 		}
 		exchange.getIn().setBody(employees);
 		return employees;
+	}
+	
+	public Shop generateShop(Exchange exchange) {
+		generateEmployees(exchange);
+		Manager manager = new Manager("Williamsburg", "Abc Consulting", "Freddy", "Applebee");
+		Shop shop = new Shop(employees, manager, "1723 Dohouse Road, Williamsburg Nevada", "Abc Operations");
+		exchange.getIn().setBody(shop);
+		return shop;
 	}
 
 }
