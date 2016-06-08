@@ -10,11 +10,17 @@
 	<context:component-scan base-package="jammazwan.xam" />
     
     
-    
+    <bean id="xamBean" class="jammazwan.xam.XamBean"/>
     <bean id="xamRoutes" class="jammazwan.xam.XamRoutes"/>
 
     <camelContext id="xam" xmlns="http://camel.apache.org/schema/spring">
         <routeBuilder ref="xamRoutes"/>
+		<dataFormats>
+			<bindy id="cityDataFormat" type="Csv" classType="jammazwan.entity.City" />
+			<bindy id="surnameDataFormat" type="Csv" classType="jammazwan.entity.Surname" />
+			<bindy id="nameDataFormat" type="Csv" classType="jammazwan.entity.Name" />
+			<bindy id="companyDataFormat" type="Csv" classType="jammazwan.entity.Company" />
+		</dataFormats>
     </camelContext>
 
 </beans>
